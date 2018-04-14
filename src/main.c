@@ -6,39 +6,46 @@
 /*   By: dbauduin <dbauduin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 18:19:22 by dbauduin          #+#    #+#             */
-/*   Updated: 2018/04/12 20:29:00 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/04/14 10:27:44 by Damien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
-#include <unistd.h>
-#include <stdio.h>
+#include "minishell.h"
 
-int	main(int ac, char **av, char **env)
+#include <term.h>
+#include <curses.h>
+#include <unistd.h>
+#include <signal.h>
+#include <termios.h>
+
+void  hand(int sig)
 {
 
-	char	**envcpy;
-	char	buf[2];
-	char	l[2048];
-	envcpy = ft_tabcpy(env);
+	signal(sig, hand);
+	write(1, "\n", 1);
+	free(g_tdin->line);
+	g_tdin->line = ft_strnew(0);
+	g_tdin->pos = 0;
+	g_tdin->len = 0;
+	prompt();
 
-	int i = 0;
-	(void)ac;
-	if (av)
-		i = 0;
-	while(envcpy[i])
-		printf("%s\n", envcpy[i++]);
-	i = 0;
-	while(42)
+}
+
+
+int		main(void)
+{
+	char		*name;
+	struct termios	term;
+
+	signal(SIGINT, hand);
+	if ((setup()) && (name = ft_getenv("TERM")) && tgetent(0, name) && tcgetattr(0, &term) != -1)
 	{
-		read(0, buf, 1);
-		l[i] = buf[0];
-		if (l[i] == '\n')
-		{
-			printf("%s", l);
-			l[i] = 0;
-		}
-		i++;
+		term.c_lflag &= ~(ICANON | ECHO);
+		if (tcsetattr(0, TCSANOW, &term) != -1)
+			ft_stdin();
 	}
+	else
+		printf("failed to load");
 	return (0);
 }
+

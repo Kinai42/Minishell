@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   other.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbauduin <dbauduin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/23 18:22:59 by dbauduin          #+#    #+#             */
-/*   Updated: 2018/03/23 18:29:22 by dbauduin         ###   ########.fr       */
+/*   Created: 2018/04/13 16:24:10 by Damien            #+#    #+#             */
+/*   Updated: 2018/04/14 10:21:57 by Damien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	init(t_env *env)
+#include "minishell.h"
+
+#include <stdlib.h>
+
+int		ft_putc(int c)
 {
-
-
-
-
-	return(0);
+	write(1, &c, 1);
+	return (c);
 }

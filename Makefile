@@ -34,7 +34,7 @@ all: $(NAME)
 $(NAME): $(SRC)
 	@make -C ./libft
 	@make library --no-print-directory
-	@$(CC) $(CC_FLAG)  libft/libft.a -o $(NAME) $(OBJ_P)
+	@$(CC) $(CC_FLAG)  libft/libft.a -o $(NAME) $(OBJ_P) -l termcap
 
 clean:
 	make -C	./libft clean

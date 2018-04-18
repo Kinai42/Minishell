@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 14:37:30 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/18 19:16:15 by Damien           ###   ########.fr       */
+/*   Updated: 2018/04/18 20:35:29 by Damien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,29 +61,29 @@ int		  unset_env(char *arg)
 	t_msh	*tmp;
 	t_msh	*previous;
 
-	tmp = g_msh;
-	previous = tmp;
-	if (!arg && printf("ERROR"))
-		return(1);
-	//		error("bad assignement", 0);
 	previous = g_msh;
-	if (!ft_strcmp(arg, previous->env))
+	if (!arg)
+		error("bad assignement", 0);
+	else if(!ft_strcmp(arg, previous->env))
 	{
 		g_msh = previous->next;
 		free(previous);
 		return (1);
 	}
-	tmp = previous->next;
-	while (tmp)
+	else
 	{
-		if (!ft_strcmp(arg, tmp->env))
+		tmp = previous->next;
+		while (tmp)
 		{
-			previous->next = tmp->next;
-			ft_lstdelelem(tmp);
-			return (1);
+			if (!ft_strcmp(arg, tmp->env))
+			{
+				previous->next = tmp->next;
+				ft_lstdelelem(tmp);
+				return (1);
+			}
+			previous = tmp;
+			tmp = tmp->next;
 		}
-		previous = tmp;
-		tmp = tmp->next;
 	}
 	return (1);
 }

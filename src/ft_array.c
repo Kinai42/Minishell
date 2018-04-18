@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 17:56:27 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/18 20:06:21 by Damien           ###   ########.fr       */
+/*   Updated: 2018/04/18 20:40:15 by Damien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int		ft_count(char *str)
 	quote = '\0';
 	while (*str)
 	{
-		//		printf("FIRST str = [%s]\n", str);
 		while (*str && *str == ' ')
 			str++;
 		while (*str && *str != ' ')
@@ -85,18 +84,12 @@ int		ft_count(char *str)
 				if(!quote)
 					quote = *(str++);
 				while (*str && *str != quote)
-				{
-					//					printf("*STR = [%c]\n", *str);
 					str++;
-				}
 			}
-			//			printf("LAST str = [%s]\n", str);
 			*str ? str++ : 0;
 		}
 		count++;
 		quote = '\0';
-		//		printf("COUNT = [%d]\n", count);
-
 	}
 	return(count);
 }

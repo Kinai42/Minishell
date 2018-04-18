@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 14:28:38 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/18 19:30:22 by Damien           ###   ########.fr       */
+/*   Updated: 2018/04/18 20:43:27 by Damien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,17 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <term.h>
+#include <limits.h>
 
 int	  prompt(void)
 {
 	char	*user;
 	char	*path;
+	char  buff[PATH_MAX];
 
 	user = ft_getenv("USER");
+	if (!(path = ft_strjoin("PWD=", getcwd(buff, PATH_MAX))) || !set_env(path))
+		return (0);
 	path = ft_getenv("PWD");
 	write(1, user, strlen(user));
 	write(1, "\033[32m", 5);
@@ -91,6 +95,7 @@ void	  ft_stdin(void)
 	g_tdin->line = ft_strnew(0);
 	g_tdin->pos = 0;
 	g_tdin->len = 0;
+	g_tdin->proc = 0;
 	prompt();
 	//	printf("-- FT_STDIN --\n");
 	while ((rd = read(0, buff, 3)))

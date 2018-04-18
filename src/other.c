@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 16:24:10 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/18 20:04:34 by Damien           ###   ########.fr       */
+/*   Updated: 2018/04/18 20:20:52 by Damien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void	error(char *msg, char *str)
 
 void	prompt_path(char *path)
 {
-	char *tmp;
-
+	char	*tmp;
+	
 	if((tmp = ft_strdup(ft_strstr(path, ft_getenv("HOME") + 1))))
 		write(1, "~", 1);
 	write(1, tmp, ft_strlen(tmp));

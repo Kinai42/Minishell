@@ -6,7 +6,7 @@
 /*   By: dbauduin <dbauduin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 16:33:06 by dbauduin          #+#    #+#             */
-/*   Updated: 2017/10/21 16:33:11 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/04/18 19:58:21 by Damien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_strstr(char *str, char *to_find)
 		while (to_find[j] == str[i + j])
 		{
 			if (to_find[j + 1] == '\0')
-				return (&str[i]);
+				return (&str[i + j + 1]);
 			j++;
 		}
 		i++;

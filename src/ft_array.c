@@ -6,19 +6,61 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 17:56:27 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/14 10:07:55 by Damien           ###   ########.fr       */
+/*   Updated: 2018/04/18 20:06:21 by Damien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <unistd.h>
 
+void	ft_escape(char c)
+{
+	if(c == '0')
+		write(1, "\0", 1);
+	if(c == 'a')
+		write(1, "\a", 1);
+	if(c == 'b')
+		write(1, "\b", 1);
+	if(c == 'f')
+		write(1, "\f", 1);
+	if(c == 'n')
+		write(1, "\n", 1);
+	if(c == 'r')
+		write(1, "\r", 1);
+	if(c == 't')
+		write(1, "\t", 1);
+}
+
+int	  ft_flag(char c)
+{
+	if (c == '0' || c == 'a' || c == 'b' || c == 'f' || c == 'n' ||\
+			c == 'r' || c == 't' || c == 'c')
+		return (1);
+	return (0);
+}
+
 void	  echo(char **arg)
 {
-	while (*arg)
+	int	  i;
+	int	  j;
+
+	i = 0;
+	while (arg[i])
 	{
-		write(1, *arg, ft_strlen(*arg));
-		if (*(++arg))
+		j = 0;
+		while(arg[i][j])
+		{
+			if (arg[i][j] == '\\' && ft_flag(arg[i][++j]))
+			{
+				if(arg[i][j] == 'c')
+					return ;
+				ft_escape(arg[i][j]);
+			}
+			else if (arg[i][j])
+				write(1, &arg[i][j], 1);
+			j++;;
+		}
+		if (arg[++i])
 			write(1, " ", 1);
 	}
 	write(1, "\n", 1);
@@ -33,7 +75,7 @@ int		ft_count(char *str)
 	quote = '\0';
 	while (*str)
 	{
-//		printf("FIRST str = [%s]\n", str);
+		//		printf("FIRST str = [%s]\n", str);
 		while (*str && *str == ' ')
 			str++;
 		while (*str && *str != ' ')
@@ -44,16 +86,16 @@ int		ft_count(char *str)
 					quote = *(str++);
 				while (*str && *str != quote)
 				{
-//					printf("*STR = [%c]\n", *str);
+					//					printf("*STR = [%c]\n", *str);
 					str++;
 				}
 			}
-//			printf("LAST str = [%s]\n", str);
+			//			printf("LAST str = [%s]\n", str);
 			*str ? str++ : 0;
 		}
 		count++;
 		quote = '\0';
-//		printf("COUNT = [%d]\n", count);
+		//		printf("COUNT = [%d]\n", count);
 
 	}
 	return(count);
@@ -75,9 +117,13 @@ char	*ft_word(char **s)
 			if(!quote)
 				quote = *((*s)++);
 			while (**s && **s != quote)
+			{
+				if(**s == '~')
+					word = ft_addchar(word, '\\');
 				word = ft_addchar(word, *((*s)++));
+			}
 		}
-		else
+		else if(**s != '\\' || (**s == '\\' && *(*s-1) == '\\'))
 			word = ft_addchar(word, **s);
 		**s ? *s += 1 : 0;
 	}
@@ -91,24 +137,24 @@ char	**split(char *str)
 	int		count;
 
 	count = ft_count(str);
-//	printf("COUNT WORD = %d\n", count);
+	//	printf("COUNT WORD = %d\n", count);
 	if(!(array = (char **)malloc(sizeof(char*) * (count + 1))))
 		return(0);
 	array[count] = NULL;
 	count = 0;
 	while(*str)
 	{
-//		printf("CHAR S = %d\n", *str);
+		//		printf("CHAR S = %d\n", *str);
 		while(*str && *str == ' ' && *str++);
 		if(*str)
 		{
 			if(!(word = ft_word(&str)))
 				return (0);
-//			printf("WORD = [%s]\n", word);
+			//			printf("WORD = [%s]\n", word);
 			array[count++] = strdup(word);
 			free(word);
 		}
-//		printf("STR = %s\n", str);
+		//		printf("STR = %s\n", str);
 	}
 	return(array);
 }
@@ -119,14 +165,21 @@ int		  process_if(void)
 	char	**arg;
 //	int i =0;
 	arg = split(g_tdin->line);
+	home(arg);
 //	while(arg[i])
-//		printf("%s\n", arg[i++]);
+//		printf("ARRAY =%s\n", arg[i++]);
 	if (!ft_strcmp(*arg, "echo"))
 		echo(&arg[1]);
-		else if (!ft_strcmp(*arg, "env"))
-			env();
-	else if (!ft_strcmp(*arg, "exit"))
-		exit (0);
+	else if (!ft_strcmp(*arg, "env"))
+		env();
+	else if (!ft_strcmp(*arg, "setenv"))
+		set_env(arg[1]);
+	else if (!ft_strcmp(*arg, "unsetenv"))
+		unset_env(arg[1]);
+	else if (!ft_strcmp(*arg, "cd"))
+		cd(arg[1]);
+	else if (!ft_strcmp(*arg, "exit") || !execute(arg))
+		return (0);
 	ft_cleaner(arg);
 	return (1);
 }

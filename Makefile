@@ -34,7 +34,7 @@ all: $(NAME)
 $(NAME): $(SRC)
 	@make -C ./libft
 	@make library --no-print-directory
-	@$(CC) $(CC_FLAG)  libft/libft.a -o $(NAME) $(OBJ_P) -l termcap
+	@$(CC) libft/libft.a -o $(NAME) $(OBJ_P) -l termcap
 
 clean:
 	make -C	./libft clean
@@ -52,7 +52,7 @@ re: fclean all
 
 object:	$(SRC) $(P_SRC) $(P_OBJ)
 	$(foreach SOURCE, $(SRC), \
-	$(CC) $(CC_FLAG) -I$(P_INCLUDE) -c $(SOURCE) -o $(P_OBJ)/$(notdir $(SOURCE:.c=.o))	&& \
+	$(CC) -I$(P_INCLUDE) -c $(SOURCE) -o $(P_OBJ)/$(notdir $(SOURCE:.c=.o))	&& \
 	printf "$(OK)[+][$(PROJECT)] $(SOURCE)$(C_DEF)" && \
 	printf "\r\033[K" \
 	;)

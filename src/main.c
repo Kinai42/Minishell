@@ -6,7 +6,7 @@
 /*   By: dbauduin <dbauduin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 18:19:22 by dbauduin          #+#    #+#             */
-/*   Updated: 2018/04/14 10:27:44 by Damien           ###   ########.fr       */
+/*   Updated: 2018/04/18 19:22:35 by Damien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,23 @@
 
 void  hand(int sig)
 {
+	int	  status;
 
-	signal(sig, hand);
-	write(1, "\n", 1);
-	free(g_tdin->line);
-	g_tdin->line = ft_strnew(0);
-	g_tdin->pos = 0;
-	g_tdin->len = 0;
-	prompt();
-
+	if (g_tdin->proc)
+	{
+		waitpid(g_tdin->proc, &status, 0);
+		if (status == 2)
+			write(1, "\n", 1);
+	}
+	else if (sig == 2)
+	{
+		write(1, "\n", 1);
+		free(g_tdin->line);
+		g_tdin->line = ft_strnew(0);
+		g_tdin->pos = 0;
+		g_tdin->len = 0;
+		prompt();
+	}
 }
 
 

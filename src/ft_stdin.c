@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 14:28:38 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/14 10:02:14 by Damien           ###   ########.fr       */
+/*   Updated: 2018/04/18 19:30:22 by Damien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@
 int	  prompt(void)
 {
 	char	*user;
-	char	*patch;
+	char	*path;
 
 	user = ft_getenv("USER");
-	patch = ft_getenv("PWD");
+	path = ft_getenv("PWD");
 	write(1, user, strlen(user));
 	write(1, "\033[32m", 5);
 	write(1," ", 1);
-	write(1, patch, strlen(patch));
+	prompt_path(path);
 	write(1, "> ", 2);
 	write(1, "\033[0m", 4);
 	return(1);
@@ -34,8 +34,8 @@ int	  prompt(void)
 
 static int	  exec(void)
 {
-	printf("\n--EXEC-- \n[%s] -- [%d] -- [%d]\n", g_tdin->line, g_tdin->pos, g_tdin->len);
-	if (*g_tdin->line && !process_if()) // execution du programme mis en **arg et choix du programme
+	write(1, "\n", 1);
+	if (*g_tdin->line && !process_if())
 		return (0);
 	free(g_tdin->line);
 	g_tdin->line = ft_strnew(0);
@@ -45,28 +45,41 @@ static int	  exec(void)
 	return (1);
 }
 
+static char	*ft_addbuffposx(char *buff)
+{
+	char	*tmp;
+	char	*join;
+
+	if (!(join = ft_strdup(&g_tdin->line[g_tdin->pos])))
+		return (0);
+	g_tdin->line[g_tdin->pos] = 0;
+	tmp = ft_strdup(g_tdin->line);
+	free(g_tdin->line);
+	g_tdin->line = ft_strjoin(tmp, buff);
+	free(tmp);
+	tmp = ft_strjoin(g_tdin->line, join);
+	free(join);
+	return(tmp);
+}
+
 static int	  addbuff(char *buff)
 {
 	char	*tmp;
-	int	  i;
+	int		i;
 
 	if (g_tdin->pos < g_tdin->len)
-	{
-		if (!(tmp = ft_strndup(g_tdin->line, ft_strlen(g_tdin->line) + 1)))
-			return (0);
-		tmp[g_tdin->pos] = *buff;
-		ft_strcpy(&tmp[g_tdin->pos + 1], &g_tdin->line[g_tdin->pos]);
-	}
+		tmp = ft_addbuffposx(buff);
 	else if (!(tmp = ft_strjoin(g_tdin->line, buff)))
 		return (0);
 	i = ft_strlen(&tmp[g_tdin->pos]);
 	write(1, &tmp[g_tdin->pos], i);
-	while (--i)
+	i -= ft_strlen(buff) - 1;
+	while (--i > 0)
 		write(1, "\b", 1);
 	free(g_tdin->line);
 	g_tdin->line = tmp;
-	g_tdin->len++;
-	g_tdin->pos++;
+	g_tdin->len = ft_strlen(g_tdin->line);
+	g_tdin->pos += ft_strlen(buff);
 	return (1);
 }
 
@@ -79,7 +92,7 @@ void	  ft_stdin(void)
 	g_tdin->pos = 0;
 	g_tdin->len = 0;
 	prompt();
-//	printf("-- FT_STDIN --\n");
+	//	printf("-- FT_STDIN --\n");
 	while ((rd = read(0, buff, 3)))
 	{
 		buff[rd] = 0;

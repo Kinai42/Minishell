@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 14:37:30 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/18 20:35:29 by Damien           ###   ########.fr       */
+/*   Updated: 2018/04/20 13:37:35 by Damien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ int		  unset_env(char *arg)
 	else if(!ft_strcmp(arg, previous->env))
 	{
 		g_msh = previous->next;
-		free(previous);
-		return (1);
+		ft_lstdelelem(previous);
 	}
 	else
 	{
@@ -79,7 +78,6 @@ int		  unset_env(char *arg)
 			{
 				previous->next = tmp->next;
 				ft_lstdelelem(tmp);
-				return (1);
 			}
 			previous = tmp;
 			tmp = tmp->next;
@@ -93,15 +91,10 @@ char	  *ft_getenv(char *name)
 	t_msh *tmp;
 
 	tmp = g_msh;
-	//	printf("--GETENV--\n");
 	while (tmp)
 	{
-		//		printf("tmp->env = [%s] vs name = [%s]\n", tmp->env, name);
 		if (!ft_strcmp(name, tmp->env))
-		{
-			//			printf("-- GETENV RETURN [%s]\n", tmp->vals);
 			return (tmp->vals);
-		}
 		tmp = tmp->next;
 	}
 	return (0);

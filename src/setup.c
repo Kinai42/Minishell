@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 13:48:23 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/18 20:43:11 by Damien           ###   ########.fr       */
+/*   Updated: 2018/04/20 13:22:28 by Damien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ int	ft_addenv(t_msh **alst, t_msh *new)
 
 int	  setup(void)
 {
-	extern char **environ;
-	char		  *tmp;
-	int		  pos;
+	extern char		**environ;
+	char			*tmp;
+	int				pos;
 
-	pos = 0;
+	pos = -1;
+	while(environ[++pos + 1]);
 	if(!(g_tdin = (t_tdin *)malloc(sizeof(t_tdin))))
 		return(0);
 	g_msh = ft_newenv(NULL, NULL);
-	while(environ[pos])
+	while(pos >= 0)
 	{
-//		printf("--%d--\n", pos);
 		tmp = ft_strdup(environ[pos]);
 		if(!(g_msh->vals = ft_strdup(ft_strchr(tmp, '=') + 1)))
 			return(0);
@@ -54,9 +54,10 @@ int	  setup(void)
 		if (!(g_msh->env = ft_strdup(tmp)))
 			return(0);
 		free(tmp);
-//		printf("env = %s et vals = %s\n", g_msh->env, g_msh->vals);
-		if(environ[++pos])
+		if(--pos >= 0)
 			ft_addenv(&g_msh, ft_newenv(NULL, NULL));
 	}
+	set_env(tmp = ft_strdup("_=/usr/bin/env"));
+	free(tmp);
 	return(1);
 }

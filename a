@@ -1,1 +1,2 @@
 env.c si pas d'environnement ? proteger les  fonctions
+voir pourquoi ft_printf ne fonctionne pas

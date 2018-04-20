@@ -6,7 +6,7 @@
 /*   By: dbauduin <dbauduin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 18:19:22 by dbauduin          #+#    #+#             */
-/*   Updated: 2018/04/18 19:22:35 by Damien           ###   ########.fr       */
+/*   Updated: 2018/04/20 12:59:02 by Damien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		main(void)
 			ft_stdin();
 	}
 	else
-		printf("failed to load");
+		printf("failed to load\n");
 	return (0);
 }
 

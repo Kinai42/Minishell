@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 13:48:23 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/20 13:22:28 by Damien           ###   ########.fr       */
+/*   Updated: 2018/04/23 11:56:36 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int	  setup(void)
 		if(--pos >= 0)
 			ft_addenv(&g_msh, ft_newenv(NULL, NULL));
 	}
-	set_env(tmp = ft_strdup("_=/usr/bin/env"));
+	set_env(tmp = ft_strdup("_=/Users/damien/42/Minishell/.minishell/env"));
+	set_env(tmp = ft_strdup("SHELL=/Users/damien/42/Minishell/minishell"));
 	free(tmp);
 	return(1);
 }

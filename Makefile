@@ -52,7 +52,7 @@ re: fclean all
 
 object:	$(SRC) $(P_SRC) $(P_OBJ)
 	$(foreach SOURCE, $(SRC), \
-	$(CC) $(CC_FLAF) -I$(P_INCLUDE) -c $(SOURCE) -o $(P_OBJ)/$(notdir $(SOURCE:.c=.o))	&& \
+	$(CC) $(CC_FLAG) -I$(P_INCLUDE) -c $(SOURCE) -o $(P_OBJ)/$(notdir $(SOURCE:.c=.o))	&& \
 	printf "$(OK)[+][$(PROJECT)] $(SOURCE)$(C_DEF)" && \
 	printf "\r\033[K" \
 	;)

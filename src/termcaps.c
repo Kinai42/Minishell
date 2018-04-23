@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 16:13:55 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/14 10:21:46 by Damien           ###   ########.fr       */
+/*   Updated: 2018/04/23 13:15:00 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ void	  termcaps(char *tc)
 	if (!tc)
 		return ;
 	if(*tc == 4)
+	{
+		write(1, "exit\n", 5);
 		exit(0) ;
+	}
 	*tc == 127 && g_tdin->pos ? backspace() : 0;
 	*tc == 27 ? move(tc[2]) : 0;
 	*tc == 12 ? clear() : 0;

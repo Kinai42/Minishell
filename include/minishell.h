@@ -6,7 +6,7 @@
 /*   By: dbauduin <dbauduin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/24 08:25:37 by dbauduin          #+#    #+#             */
-/*   Updated: 2018/04/18 19:30:11 by Damien           ###   ########.fr       */
+/*   Updated: 2018/04/23 12:57:51 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct		s_tdin
 t_tdin			  *g_tdin;
 
 char	*ft_getenv(char *name); //recherche name dans lenvironnement;
-void	ft_stdin(void); // Read;
+void	ft_stdin(); // Read;
 void	termcaps(char *tc); //action command fleche, backspace, ctrl+l, ctrl+d
 void	env(void); //print environnement
 int		prompt(void); //affiche le PROMPT
@@ -53,4 +53,5 @@ void	cd(char *path);
 int		execute(char **arg);
 void	error(char *msg, char *str);
 void	prompt_path(char *path);
+int	atoi_s(char *s);
 

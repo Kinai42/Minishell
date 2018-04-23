@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 16:24:10 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/18 20:20:52 by Damien           ###   ########.fr       */
+/*   Updated: 2018/04/23 11:46:33 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,35 @@ void	error(char *msg, char *str)
 void	prompt_path(char *path)
 {
 	char	*tmp;
-	
+
 	if((tmp = ft_strdup(ft_strstr(path, ft_getenv("HOME") + 1))))
 		write(1, "~", 1);
 	write(1, tmp, ft_strlen(tmp));
 	free(tmp);
+}
+
+int	atoi_s(char *s)
+{
+	int ret;
+	int	sign;
+
+	ret = -1;
+	if (!s)
+		return (0);
+	while (*s == ' ' && s++);
+	while (s[++ret])
+		if (!(s[ret] <= '9' && s[ret] >= '0') && (s[ret] == '-' && !s[ret + 1]))
+		{
+			write(1, "bash: exit: aa: numeric argument required", 12);
+			write(1, s, ft_strlen(s));
+			write(1, " numeric argument required", 26);
+			return (255);
+		}
+	ret = 0;
+	sign = 1;
+	if (*s == '-' && s++)
+		sign = -1;
+	while (*s && *s >= '0' && *s <= '9')
+		ret = ret * 10 + (*s++ - 48);
+	return (ret * sign);
 }

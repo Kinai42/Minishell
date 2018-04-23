@@ -6,12 +6,15 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 17:56:27 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/18 20:40:15 by Damien           ###   ########.fr       */
+/*   Updated: 2018/04/23 13:16:20 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <unistd.h>
+#include <term.h>
+#include <curses.h>
+#include <termios.h>
 
 void	ft_escape(char c)
 {
@@ -39,7 +42,7 @@ int	  ft_flag(char c)
 	return (0);
 }
 
-void	  echo(char **arg)
+void	  ft_echo(char **arg)
 {
 	int	  i;
 	int	  j;
@@ -156,13 +159,13 @@ char	**split(char *str)
 int		  process_if(void)
 {
 	char	**arg;
-//	int i =0;
+
 	arg = split(g_tdin->line);
 	home(arg);
-//	while(arg[i])
-//		printf("ARRAY =%s\n", arg[i++]);
+	
+
 	if (!ft_strcmp(*arg, "echo"))
-		echo(&arg[1]);
+		ft_echo(&arg[1]);
 	else if (!ft_strcmp(*arg, "env"))
 		env();
 	else if (!ft_strcmp(*arg, "setenv"))
@@ -171,8 +174,8 @@ int		  process_if(void)
 		unset_env(arg[1]);
 	else if (!ft_strcmp(*arg, "cd"))
 		cd(arg[1]);
-	else if (!ft_strcmp(*arg, "exit") || !execute(arg))
-		return (0);
+	else if ((!ft_strcmp(*arg, "exit") && write(1, "exit\n", 5)) || !execute(arg))
+		exit (!ft_strcmp(*arg, "exit") ? (atoi_s(arg[1])) : (0));
 	ft_cleaner(arg);
 	return (1);
 }

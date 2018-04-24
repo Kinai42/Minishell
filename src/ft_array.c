@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 17:56:27 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/24 08:26:04 by suddin           ###   ########.fr       */
+/*   Updated: 2018/04/24 22:04:26 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,14 +158,12 @@ char	**split(char *str)
 	return(array);
 }
 
-
 int		  process_if(void)
 {
 	char	**arg;
 
 	arg = split(g_tdin->line);
 	home(arg);
-
 
 	if (!ft_strcmp(*arg, "echo"))
 		ft_echo(&arg[1]);

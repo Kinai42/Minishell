@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 16:13:55 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/23 13:15:00 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/04/24 22:59:18 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,23 @@ static void	  move(char c)
 
 static void	  backspace(void)
 {
+	int i;
+
 	move('D');
-	tputs(tgetstr("dc", 0), 0, ft_putc);
+	tputs(tgetstr("dc", 0), 1, ft_putc);
 	ft_strcpy(&g_tdin->line[g_tdin->pos], &g_tdin->line[g_tdin->pos + 1]);
 	g_tdin->len--;
+	i = ft_strlen(&g_tdin->line[g_tdin->pos]);
+	while (i-- >= 0)
+		write(1, "1", 1);
+	i = ft_strlen(&g_tdin->line[g_tdin->pos]);
+	while (i-- >= 0 && write(1, "\b", 1))
+	tputs(tgetstr("dc", 0), 1, ft_putc);
+	i = ft_strlen(&g_tdin->line[g_tdin->pos]);
+	write(1, &g_tdin->line[g_tdin->pos], i);
+	i = g_tdin->len - g_tdin->pos + 1;
+	while (--i > 0)
+		write(1, "\b", 1);
 }
 
 static void	  clear(void)

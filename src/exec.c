@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 18:18:34 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/24 08:25:18 by suddin           ###   ########.fr       */
+/*   Updated: 2018/04/24 22:33:52 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int		  execute(char **args)
 	else if (childp == 0)
 	{
 		execve(path, args, tabenv());
-		error("invalid/forbidden command", *args);
+		error("command not found", *args);
 		free(path);
 		return (0);
 	}

@@ -84,7 +84,7 @@ static char	  **tabenv(void)
 	while (tmp)
 	{
 		env = ft_strjoin(tmp->env, "=");
-		tab[i++] = ft_strjoin(env, g_msh->vals);
+		tab[i++] = ft_strjoin(env, tmp->vals);
 		free(env);
 		tmp = tmp->next;
 	}

@@ -13,14 +13,26 @@ CC_FLAG ?=		-Werror\
 			-Wall\
 			-Wextra\
 
-CC_FLAG++	?=	-O1 -g -fsanitize=address\
+#CC_FLAG++	?=	-O1 -g -fsanitize=address\
 			-fno-omit-frame-pointer\
+
+
+CC_FLAG++	?= -ggdb
 
 INCLUDE = include
 PROJECT = Minishell
 NAME = minishell
+MAIN ?=	src/main.c
 
-SRC		= $(SRC_W)
+
+SRC		=	src/cd.c\
+			src/env.c\
+			src/exec.c\
+			src/ft_array.c\
+			src/ft_stdin.c\
+			src/other.c\
+			src/setup.c\
+			src/termcaps.c
 
 OBJ		:= $(notdir $(SRC:.c=.o))
 
@@ -33,8 +45,7 @@ all: $(NAME)
 
 $(NAME): $(SRC)
 	@make -C ./libft
-	@make library --no-print-directory
-	@$(CC) $(CC_FLAG) libft/libft.a -o $(NAME) $(OBJ_P) -l termcap
+	@$(CC) $(MAIN) $(SRC)  $(CC_FLAG++) -l termcap -I include libft/libft.a -o $(NAME)  
 
 clean:
 	make -C	./libft clean

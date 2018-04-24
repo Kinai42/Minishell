@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 17:56:27 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/23 13:16:20 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/04/24 08:26:04 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,21 @@ int		ft_count(char *str)
 	{
 		while (*str && *str == ' ')
 			str++;
-		while (*str && *str != ' ')
+		if (*str && *str != ' ')
 		{
-			if (*str == '"' || *str == '\'')
+			count++;
+			while (*str && *str != ' ')
 			{
-				if(!quote)
-					quote = *(str++);
-				while (*str && *str != quote)
-					str++;
+				if (*str == '"' || *str == '\'')
+				{
+					if(!quote)
+						quote = *(str++);
+					while (*str && *str != quote)
+						str++;
+				}
+				*str ? str++ : 0;
 			}
-			*str ? str++ : 0;
 		}
-		count++;
 		quote = '\0';
 	}
 	return(count);
@@ -133,7 +136,7 @@ char	**split(char *str)
 	int		count;
 
 	count = ft_count(str);
-	//	printf("COUNT WORD = %d\n", count);
+	//printf("COUNT WORD = %d\n", count);
 	if(!(array = (char **)malloc(sizeof(char*) * (count + 1))))
 		return(0);
 	array[count] = NULL;
@@ -162,7 +165,7 @@ int		  process_if(void)
 
 	arg = split(g_tdin->line);
 	home(arg);
-	
+
 
 	if (!ft_strcmp(*arg, "echo"))
 		ft_echo(&arg[1]);

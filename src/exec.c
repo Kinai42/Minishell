@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 18:18:34 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/23 11:47:39 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/04/24 08:25:18 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		  execute(char **args)
 	char	*path;
 
 	if (!(path = find_path(*args)))
-		return (0);
+		return (1);
 	childp = fork();
 	g_tdin->proc = childp;
 	if (childp < 0)

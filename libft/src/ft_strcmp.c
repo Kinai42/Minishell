@@ -6,7 +6,7 @@
 /*   By: dbauduin <dbauduin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 16:37:20 by dbauduin          #+#    #+#             */
-/*   Updated: 2017/10/21 16:37:21 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/04/24 07:47:12 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	ft_strcmp(char *s1, char *s2)
 {
+	if (!s1 || !s2)
+		return -1;
 	while (*s1 && *s2 && *s1 == *s2 && s1++ && s2++)
 		;
 	return ((unsigned char)*s1 - (unsigned char)*s2);

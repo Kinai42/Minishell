@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 17:56:27 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/24 22:04:26 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/04/25 14:03:37 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ int		  process_if(void)
 	else if (!ft_strcmp(*arg, "env"))
 		env();
 	else if (!ft_strcmp(*arg, "setenv"))
-		set_env(arg[1]);
+		set_env(ft_strdup(arg[1]));
 	else if (!ft_strcmp(*arg, "unsetenv"))
 		unset_env(arg[1]);
 	else if (!ft_strcmp(*arg, "cd"))

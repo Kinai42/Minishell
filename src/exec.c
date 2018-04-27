@@ -6,17 +6,16 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 18:18:34 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/24 22:33:52 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/04/27 02:41:30 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 #include <sys/wait.h>
 #include <signal.h>
 #include <unistd.h>
 
-static void	  exec_error(int id)
+static void	exec_error(int id)
 {
 	if (id == 6)
 		printf("{red}error{eoc} > process terminated [ABRT]\n");
@@ -28,7 +27,7 @@ static void	  exec_error(int id)
 		printf("{red}error{eoc} > process terminated [SEGV]\n");
 }
 
-static char	  *check_path(char *path, char *name)
+static char	*check_path(char *path, char *name)
 {
 	char	*tmp;
 	char	*dir;
@@ -43,7 +42,7 @@ static char	  *check_path(char *path, char *name)
 	return (0);
 }
 
-static char	  *find_path(char *name)
+static char	*find_path(char *name)
 {
 	char	**paths;
 	int		i;
@@ -65,7 +64,7 @@ static char	  *find_path(char *name)
 	return (path ? path : ft_strdup(name));
 }
 
-static char	  **tabenv(void)
+static char	**tabenv(void)
 {
 	char	**tab;
 	t_msh	*tmp;
@@ -91,10 +90,10 @@ static char	  **tabenv(void)
 	return (tab);
 }
 
-int		  execute(char **args)
+int			execute(char **args)
 {
 	pid_t	childp;
-	int	  status;
+	int		status;
 	char	*path;
 
 	if (!(path = find_path(*args)))

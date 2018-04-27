@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 14:37:30 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/25 14:01:34 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/04/27 02:05:54 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	env(void)
 
 	tmp = g_msh;
 	set_env(ft_strdup("_=/Users/damien/42/Minishell/.minishell/env"));
-	while(tmp)
+	while (tmp)
 	{
 		ft_putstr(tmp->env);
 		write(1, "=", 1);
@@ -29,7 +29,7 @@ void	env(void)
 	}
 }
 
-int		  set_env(char *arg)
+int		set_env(char *arg)
 {
 	char	*val[2];
 	t_msh	*tmp;
@@ -48,8 +48,7 @@ int		  set_env(char *arg)
 			if (!ft_strcmp(tmp->env, val[0]))
 			{
 				free(tmp->vals);
-				tmp->vals = val[1];
-				return (1);
+				return ((tmp->vals = val[1]) ? 1 : 0);
 			}
 			tmp = tmp->next;
 		}
@@ -58,7 +57,7 @@ int		  set_env(char *arg)
 	return (1);
 }
 
-int		  unset_env(char *arg)
+int		unset_env(char *arg)
 {
 	t_msh	*tmp;
 	t_msh	*previous;
@@ -66,11 +65,8 @@ int		  unset_env(char *arg)
 	previous = g_msh;
 	if (!arg)
 		error("bad assignement", 0);
-	else if(!ft_strcmp(arg, previous->env))
-	{
-		g_msh = previous->next;
+	else if (!ft_strcmp(arg, previous->env) && (g_msh = previous->next))
 		ft_lstdelelem(previous);
-	}
 	else
 	{
 		tmp = previous->next;
@@ -88,7 +84,7 @@ int		  unset_env(char *arg)
 	return (1);
 }
 
-char	  *ft_getenv(char *name)
+char	*ft_getenv(char *name)
 {
 	t_msh *tmp;
 

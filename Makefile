@@ -31,6 +31,7 @@ SRC		=	src/cd.c\
 			src/ft_array.c\
 			src/ft_stdin.c\
 			src/other.c\
+			src/other2.c\
 			src/setup.c\
 			src/termcaps.c
 

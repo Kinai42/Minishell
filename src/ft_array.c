@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/* ************************************************************************* */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_array.c                                         :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 17:56:27 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/25 14:03:37 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/04/27 03:23:32 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,52 +16,26 @@
 #include <curses.h>
 #include <termios.h>
 
-void	ft_escape(char c)
+void	ft_echo(char **arg)
 {
-	if(c == '0')
-		write(1, "\0", 1);
-	if(c == 'a')
-		write(1, "\a", 1);
-	if(c == 'b')
-		write(1, "\b", 1);
-	if(c == 'f')
-		write(1, "\f", 1);
-	if(c == 'n')
-		write(1, "\n", 1);
-	if(c == 'r')
-		write(1, "\r", 1);
-	if(c == 't')
-		write(1, "\t", 1);
-}
-
-int	  ft_flag(char c)
-{
-	if (c == '0' || c == 'a' || c == 'b' || c == 'f' || c == 'n' ||\
-			c == 'r' || c == 't' || c == 'c')
-		return (1);
-	return (0);
-}
-
-void	  ft_echo(char **arg)
-{
-	int	  i;
-	int	  j;
+	int		i;
+	int		j;
 
 	i = 0;
 	while (arg[i])
 	{
 		j = 0;
-		while(arg[i][j])
+		while (arg[i][j])
 		{
 			if (arg[i][j] == '\\' && ft_flag(arg[i][++j]))
 			{
-				if(arg[i][j] == 'c')
+				if (arg[i][j] == 'c')
 					return ;
 				ft_escape(arg[i][j]);
 			}
 			else if (arg[i][j])
 				write(1, &arg[i][j], 1);
-			j++;;
+			j++;
 		}
 		if (arg[++i])
 			write(1, " ", 1);
@@ -80,15 +54,13 @@ int		ft_count(char *str)
 	{
 		while (*str && *str == ' ')
 			str++;
-		if (*str && *str != ' ')
+		if (*str && *str != ' ' && count++)
 		{
-			count++;
 			while (*str && *str != ' ')
 			{
 				if (*str == '"' || *str == '\'')
 				{
-					if(!quote)
-						quote = *(str++);
+					!quote ? quote = *(str++) : 0;
 					while (*str && *str != quote)
 						str++;
 				}
@@ -97,7 +69,7 @@ int		ft_count(char *str)
 		}
 		quote = '\0';
 	}
-	return(count);
+	return (count);
 }
 
 char	*ft_word(char **s)
@@ -113,16 +85,16 @@ char	*ft_word(char **s)
 	{
 		if (**s == '"' || **s == '\'')
 		{
-			if(!quote)
+			if (!quote)
 				quote = *((*s)++);
 			while (**s && **s != quote)
 			{
-				if(**s == '~')
+				if (**s == '~')
 					word = ft_addchar(word, '\\');
 				word = ft_addchar(word, *((*s)++));
 			}
 		}
-		else if(**s != '\\' || (**s == '\\' && *(*s-1) == '\\'))
+		else if (**s != '\\' || (**s == '\\' && *(*s - 1) == '\\'))
 			word = ft_addchar(word, **s);
 		**s ? *s += 1 : 0;
 	}
@@ -136,35 +108,31 @@ char	**split(char *str)
 	int		count;
 
 	count = ft_count(str);
-	//printf("COUNT WORD = %d\n", count);
-	if(!(array = (char **)malloc(sizeof(char*) * (count + 1))))
-		return(0);
+	if (!(array = (char **)malloc(sizeof(char*) * (count + 1))))
+		return (0);
 	array[count] = NULL;
 	count = 0;
-	while(*str)
+	while (*str)
 	{
-		//		printf("CHAR S = %d\n", *str);
-		while(*str && *str == ' ' && *str++);
-		if(*str)
+		while (*str && *str == ' ')
+			str++;
+		if (*str)
 		{
-			if(!(word = ft_word(&str)))
+			if (!(word = ft_word(&str)))
 				return (0);
-			//			printf("WORD = [%s]\n", word);
 			array[count++] = strdup(word);
 			free(word);
 		}
-		//		printf("STR = %s\n", str);
 	}
-	return(array);
+	return (array);
 }
 
-int		  process_if(void)
+int		process_if(void)
 {
 	char	**arg;
 
 	arg = split(g_tdin->line);
 	home(arg);
-
 	if (!ft_strcmp(*arg, "echo"))
 		ft_echo(&arg[1]);
 	else if (!ft_strcmp(*arg, "env"))
@@ -175,8 +143,9 @@ int		  process_if(void)
 		unset_env(arg[1]);
 	else if (!ft_strcmp(*arg, "cd"))
 		cd(arg[1]);
-	else if ((!ft_strcmp(*arg, "exit") && write(1, "exit\n", 5)) || !execute(arg))
-		exit (!ft_strcmp(*arg, "exit") ? (atoi_s(arg[1])) : (0));
+	else if ((!ft_strcmp(*arg, "exit") && write(1, "exit\n", 5))
+			|| !execute(arg))
+		exit(!ft_strcmp(*arg, "exit") ? (atoi_s(arg[1])) : (0));
 	ft_cleaner(arg);
 	return (1);
 }

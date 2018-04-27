@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cast.c				                                  :+:      :+:    :+:   */
+/*   ft_cast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbauduin <dbauduin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbauduin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/12 17:57:50 by dbauduin          #+#    #+#             */
-/*   Updated: 2017/10/22 22:30:03 by dbauduin         ###   ########.fr       */
+/*   Created: 2018/04/27 03:12:12 by dbauduin          #+#    #+#             */
+/*   Updated: 2018/04/27 03:12:33 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char		*ft_cast_uns(char s, va_list ap, long long *f)
 
 char		*ft_cast_flo(va_list ap, long long *f)
 {
- 		return (ft_ftoa(va_arg(ap, double), f));
+	return (ft_ftoa(va_arg(ap, double), f));
 }
 
 char		*ft_cast_str(char s, va_list ap)

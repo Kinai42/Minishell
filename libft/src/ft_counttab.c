@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_counttab.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dbauduin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/27 03:08:20 by dbauduin          #+#    #+#             */
+/*   Updated: 2018/04/27 03:08:40 by dbauduin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 int	ft_counttab(char **tab)
@@ -5,6 +17,7 @@ int	ft_counttab(char **tab)
 	int	count;
 
 	count = -1;
-	while(tab[++count]);
-	return(count);
+	while (tab[++count])
+		;
+	return (count);
 }

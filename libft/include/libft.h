@@ -6,7 +6,7 @@
 /*   By: dbauduin <dbauduin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 16:23:20 by dbauduin          #+#    #+#             */
-/*   Updated: 2018/04/14 08:16:09 by Damien           ###   ########.fr       */
+/*   Updated: 2018/04/27 03:11:22 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ char			*ft_strresize(char *str, size_t size);
 char			*ft_strrem(char *str, int from, int len);
 char			*ft_strjoini(char const *s1, char const *s2, size_t len);
 char			*ft_strchri(const char *s, int c, unsigned int len);
-char			*ft_itoabase_uns(unsigned long long n, int b, long long *f, char c);
+char			*ft_itoabase_uns(unsigned long long n, int b, long long *f,
+				char c);
 char			*ft_strndup(const char *s1, size_t n);
 char			*ft_ftoa(double floa, long long *f);
 char			**ft_tabcpy(char **tab);

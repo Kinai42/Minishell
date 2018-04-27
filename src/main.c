@@ -6,21 +6,20 @@
 /*   By: dbauduin <dbauduin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 18:19:22 by dbauduin          #+#    #+#             */
-/*   Updated: 2018/04/25 13:48:58 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/04/27 02:35:55 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 #include <term.h>
 #include <curses.h>
 #include <unistd.h>
 #include <signal.h>
 #include <termios.h>
 
-void  hand(int sig)
+void	hand(int sig)
 {
-	int	  status;
+	int			status;
 
 	if (g_tdin->proc)
 	{
@@ -39,14 +38,14 @@ void  hand(int sig)
 	}
 }
 
-
 int		main(void)
 {
-	char		*name;
+	char			*name;
 	struct termios	term;
 
 	signal(SIGINT, hand);
-	if ((setup()) && (name = ft_getenv("TERM")) && tgetent(0, name) && tcgetattr(0, &term) != -1)
+	if ((setup()) && (name = ft_getenv("TERM")) &&
+			tgetent(0, name) && tcgetattr(0, &term) != -1)
 	{
 		term.c_lflag &= ~(ICANON | ECHO);
 		if (tcsetattr(0, TCSANOW, &term) != -1)
@@ -56,4 +55,3 @@ int		main(void)
 		printf("failed to load\n");
 	return (0);
 }
-

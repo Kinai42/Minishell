@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 16:13:55 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/27 02:28:47 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/05/01 01:17:23 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,6 @@ static void		backspace(void)
 	tputs(tgetstr("dc", 0), 1, ft_putc);
 	ft_strcpy(&g_tdin->line[g_tdin->pos], &g_tdin->line[g_tdin->pos + 1]);
 	g_tdin->len--;
-	i = ft_strlen(&g_tdin->line[g_tdin->pos]);
-	while (i-- >= 0)
-		write(1, "1", 1);
-	i = ft_strlen(&g_tdin->line[g_tdin->pos]);
-	while (i-- >= 0 && write(1, "\b", 1))
-		tputs(tgetstr("dc", 0), 1, ft_putc);
 	i = ft_strlen(&g_tdin->line[g_tdin->pos]);
 	write(1, &g_tdin->line[g_tdin->pos], i);
 	i = g_tdin->len - g_tdin->pos + 1;

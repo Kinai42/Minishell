@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 14:28:38 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/27 14:42:15 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/05/01 01:59:44 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,25 @@ int			prompt(void)
 	char	*user;
 	char	*path;
 	char	buff[PATH_MAX];
+	int	size;
+
 
 	user = ft_getenv("USER");
-	if (!(path = ft_strjoin("PWD=", getcwd(buff, PATH_MAX))) || !set_env(path))
-		return (0);
-	path = ft_getenv("PWD");
-	write(1, user, strlen(user));
-	write(1, "\033[32m", 5);
-	write(1, " ", 1);
-	prompt_path(path);
-	write(1, "\033[0m", 4);
+	if (user)
+	{
+		if (!(path = ft_strjoin("PWD=", getcwd(buff, PATH_MAX))) || !set_env(path))
+			return (0);
+		path = ft_getenv("PWD");
+		write(1, user, strlen(user));
+		write(1, "\033[32m", 5);
+		write(1, " ", 1);
+		prompt_path(path);
+		write(1, "\033[0m", 4);
+	}
+	else
+		write(1, "@", 1);
 	write(1, "> ", 2);
+
 	return (1);
 }
 

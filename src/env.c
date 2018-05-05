@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 14:37:30 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/27 02:05:54 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/05/05 02:12:33 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int		set_env(char *arg)
 			if (!ft_strcmp(tmp->env, val[0]))
 			{
 				free(tmp->vals);
+				free(val[0]);
 				return ((tmp->vals = val[1]) ? 1 : 0);
 			}
 			tmp = tmp->next;

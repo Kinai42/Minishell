@@ -6,7 +6,7 @@
 /*   By: dbauduin <dbauduin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/25 20:02:18 by dbauduin          #+#    #+#             */
-/*   Updated: 2017/11/30 13:18:14 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/05/05 01:18:24 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ char		*ft_con_int(long long i, long long *f);
 char		*ft_con_uns(char s, unsigned long long i, long long *f);
 int			ft_con_ptr(va_list ap, long long f, int *c);
 int			ft_color(char *s, int i, int *c);
+int			ft_printf(const char * restrict format, ...);
 
 #endif

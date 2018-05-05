@@ -6,15 +6,15 @@
 /*   By: dbauduin <dbauduin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/24 08:25:37 by dbauduin          #+#    #+#             */
-/*   Updated: 2018/04/27 02:57:43 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/05/05 00:59:37 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/include/libft.h"
-# include "../libft/include/printf.h"
+# include "libft.h"
+# include "printf.h"
 
 # define PROMPT "@>"
 

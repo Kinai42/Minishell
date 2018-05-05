@@ -6,11 +6,13 @@
 /*   By: dbauduin <dbauduin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 18:19:22 by dbauduin          #+#    #+#             */
-/*   Updated: 2018/04/27 02:35:55 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/05/05 01:01:10 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "printf.h"
+#include "libft.h"
 #include <term.h>
 #include <curses.h>
 #include <unistd.h>
@@ -52,6 +54,6 @@ int		main(void)
 			ft_stdin();
 	}
 	else
-		printf("failed to load\n");
+		ft_printf("failed to load\n");
 	return (0);
 }

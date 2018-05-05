@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 18:18:34 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/27 02:41:30 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/05/05 00:56:17 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 static void	exec_error(int id)
 {
 	if (id == 6)
-		printf("{red}error{eoc} > process terminated [ABRT]\n");
+		ft_printf("{red}error{eoc} > process terminated [ABRT]\n");
 	else if (id == 8)
-		printf("{red}error{eoc} > process terminated [FPE]\n");
+		ft_printf("{red}error{eoc} > process terminated [FPE]\n");
 	else if (id == 10)
-		printf("{red}error{eoc} > process terminated [BUSERR]\n");
+		ft_printf("{red}error{eoc} > process terminated [BUSERR]\n");
 	else if (id == 11)
-		printf("{red}error{eoc} > process terminated [SEGV]\n");
+		ft_printf("{red}error{eoc} > process terminated [SEGV]\n");
 }
 
 static char	*check_path(char *path, char *name)

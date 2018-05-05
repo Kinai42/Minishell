@@ -44,9 +44,9 @@ __START: os all
 
 all: $(NAME)
 
-$(NAME): $(SRC)
+$(NAME): $(SRC) $(MAIN)
 	@make -C ./libft
-	@$(CC) $(MAIN) $(SRC) -l termcap -I include libft/libft.a -o $(NAME)  
+	@$(CC) $(MAIN) $(SRC) -l termcap -I include -I libft/include --include ./libft/include/printf.h  -L libft -lft  -o $(NAME)  
 
 clean:
 	make -C	./libft clean

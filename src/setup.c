@@ -6,14 +6,14 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 13:48:23 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/27 03:28:43 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/05/05 02:46:16 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdlib.h>
 
-t_msh	*ft_newenv(char *env, char *vals)
+t_msh				*ft_newenv(char *env, char *vals)
 {
 	t_msh		*tmp;
 
@@ -25,7 +25,7 @@ t_msh	*ft_newenv(char *env, char *vals)
 	return (tmp);
 }
 
-int		ft_addenv(t_msh **alst, t_msh *new)
+int					ft_addenv(t_msh **alst, t_msh *new)
 {
 	if (alst)
 		new->next = *alst;
@@ -33,7 +33,19 @@ int		ft_addenv(t_msh **alst, t_msh *new)
 	return (1);
 }
 
-int		setup(void)
+inline static void	set_shlvl(t_msh *a)
+{
+	int tmp;
+
+	if (strcmp(a->env, "SHLVL") == 0)
+	{
+		tmp = atoi(a->vals) + 1;
+		free(a->vals);
+		a->vals = ft_itoa(tmp);
+	}
+}
+
+int					setup(void)
 {
 	extern char		**environ;
 	char			*tmp;
@@ -54,6 +66,7 @@ int		setup(void)
 			*(ft_strchr(tmp, '=')) = 0;
 			g_msh->env = ft_strdup(tmp);
 			free(tmp);
+			set_shlvl(g_msh);
 		}
 		--pos >= 0 ? ft_addenv(&g_msh, ft_newenv(NULL, NULL)) : 0;
 	}

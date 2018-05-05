@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 16:24:10 by Damien            #+#    #+#             */
-/*   Updated: 2018/04/27 14:43:25 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/05/05 00:53:28 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void		prompt_path(char *path)
 	char	*tmp;
 
 	tmp = NULL;
-	if (ft_getenv("HOME") && (tmp = ft_strdup(ft_strstr(path, ft_getenv("HOME") + 1))))
+	if (ft_getenv("HOME") && \
+			(tmp = ft_strdup(ft_strstr(path, ft_getenv("HOME") + 1))))
 		write(1, "~", 1);
 	if (tmp)
 	{
@@ -76,7 +77,7 @@ void		prompt_path(char *path)
 		free(tmp);
 	}
 	else
-		write (1, path, ft_strlen(path));
+		write(1, path, ft_strlen(path));
 }
 
 int			atoi_s(char *s)

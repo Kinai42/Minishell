@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 16:24:10 by Damien            #+#    #+#             */
-/*   Updated: 2018/05/05 00:53:28 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/05/09 02:24:16 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,17 @@ static char	*ft_homechr(char *arg)
 	i = -1;
 	while (arg[++i])
 	{
-		if (arg[i] == '~' && arg[i - 1] != '\\')
+		if (arg[i] == '~' && ((i - 1) < 0 || arg[i - 1] != '\\'))
 		{
-			join = ft_strdup(ft_strchr(&arg[i], '~') + 1);
+			join = (ft_strlen(arg) > 1) ?
+			ft_strdup(ft_strchr(&arg[i], '~') + 1) : 0;
 			*ft_strchr(arg, '~') = 0;
 			tmp = ft_strdup(arg);
 			free(arg);
-			arg = ft_strjoin(arg, ft_getenv("HOME"));
+			arg = ft_strjoin(tmp, ft_getenv("HOME"));
 			free(tmp);
-			if (*join)
-			{
-				tmp = ft_strjoin(arg, "/");
-				free(arg);
-				arg = ft_strjoin(tmp, join);
-				free(tmp);
-			}
+			if (join)
+				arg = norme(tmp, arg, join);
 		}
 	}
 	return (arg);

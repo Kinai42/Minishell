@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: dbauduin <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2018/05/05 12:30:56 by dbauduin          #+#    #+#              #
+#    Updated: 2018/05/09 02:50:32 by dbauduin         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 include .misc/make/color
 include .misc/make/paths
 include .misc/make/misc_var
@@ -12,6 +24,10 @@ CC		?=	clang
 CC_FLAG ?=		-Werror\
 			-Wall\
 			-Wextra\
+			# -O1 -g -fsanitize=address	\
+			# -fno-omit-frame-pointer		\
+			# -fsanitize-address-use-after-scope \
+
 
 #CC_FLAG++	?=	-O1 -g -fsanitize=address\
 			-fno-omit-frame-pointer\
@@ -22,16 +38,16 @@ CC_FLAG++	?= -ggdb
 INCLUDE = include
 PROJECT = Minishell
 NAME = minishell
-MAIN ?=	src/main.c
 
-
-SRC		=	src/cd.c\
+SRC		=	src/main.c\
+			src/cd.c\
 			src/env.c\
 			src/exec.c\
 			src/ft_array.c\
 			src/ft_stdin.c\
 			src/other.c\
 			src/other2.c\
+			src/other3.c\
 			src/setup.c\
 			src/termcaps.c
 
@@ -46,7 +62,7 @@ all: $(NAME)
 
 $(NAME): $(SRC) $(MAIN)
 	@make -C ./libft
-	@$(CC) $(MAIN) $(SRC) -l termcap -I include -I libft/include --include ./libft/include/printf.h  -L libft -lft  -o $(NAME)  
+	@$(CC) $(MAIN) $(SRC) $(CC_FLAG) -l termcap -I include -I libft/include --include ./libft/include/printf.h  -L libft -lft  -o $(NAME)  
 
 clean:
 	make -C	./libft clean
@@ -59,4 +75,4 @@ fclean: clean
 	printf	"$(WARN)[!] $(C_DEF)[$(PROJECT)]$(WARN) Removed all binary ./$(P_BIN)$(C_DEF)\n"
 	printf	"$(OK)[+] $(C_DEF)[$(PROJECT)]$(OK) Fully cleaned$(C_DEF)\n"
 
-re: fclean all
+re: fclean __START

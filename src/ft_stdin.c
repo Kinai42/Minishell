@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 14:28:38 by Damien            #+#    #+#             */
-/*   Updated: 2018/05/05 00:52:27 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/05/05 13:11:47 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int			prompt(void)
 	char	*user;
 	char	*path;
 	char	buff[PATH_MAX];
-	int		size;
 
 	user = ft_getenv("USER");
 	if (user)

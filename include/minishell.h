@@ -6,7 +6,7 @@
 /*   By: dbauduin <dbauduin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/24 08:25:37 by dbauduin          #+#    #+#             */
-/*   Updated: 2018/05/05 00:59:37 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/05/09 02:07:03 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int					atoi_s(char *s);
 void				ft_escape(char c);
 int					ft_flag(char c);
 int					ft_putc(int c);
+int					echo_env(char *name);
 void				ft_lstdelelem(t_msh *lst);
+char				*norme(char *tmp, char *arg, char *join);
 
 #endif

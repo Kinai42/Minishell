@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbauduin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/27 03:43:43 by dbauduin          #+#    #+#             */
-/*   Updated: 2018/04/27 03:47:50 by dbauduin         ###   ########.fr       */
+/*   Created: 2018/05/09 03:11:58 by dbauduin          #+#    #+#             */
+/*   Updated: 2018/05/09 03:27:32 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,16 @@ void	ft_echo(char **arg)
 					return ;
 				ft_escape(arg[i][j]);
 			}
-			else if (arg[i][j])
+			else if (arg[i][j] == '$' && !echo_env(&arg[i][j]))
+				while (arg[i][j] && arg[i][++j] != ' ')
+					;
+			else
 				write(1, &arg[i][j], 1);
-			j++;
+			arg[i][j] ? j++ : 0;
 		}
 		if (arg[++i])
 			write(1, " ", 1);
 	}
-	write(1, "\n", 1);
 }
 
 int		ft_count(char *str)
@@ -134,7 +136,10 @@ int		process_if(void)
 	arg = split(g_tdin->line);
 	home(arg);
 	if (!ft_strcmp(*arg, "echo"))
+	{
 		ft_echo(&arg[1]);
+		write(1, "\n", 1);
+	}
 	else if (!ft_strcmp(*arg, "env"))
 		env();
 	else if (!ft_strcmp(*arg, "setenv"))

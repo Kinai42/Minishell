@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 14:37:30 by Damien            #+#    #+#             */
-/*   Updated: 2018/05/05 02:12:33 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/05/09 03:23:55 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	env(void)
 {
 	t_msh	*tmp;
-	char	*val;
 
 	tmp = g_msh;
 	set_env(ft_strdup("_=/Users/damien/42/Minishell/.minishell/env"));
@@ -37,24 +36,24 @@ int		set_env(char *arg)
 	tmp = g_msh;
 	if (!arg || !ft_strchr(arg, '='))
 		error(arg ? "invalid value" : "invalid name", 0);
-	else
+	else if ((val[1] = ft_strdup(ft_strchr(arg, '=') + 1)))
 	{
-		val[1] = ft_strdup(ft_strchr(arg, '=') + 1);
 		*ft_strchr(arg, '=') = 0;
 		val[0] = ft_strdup(arg);
-		free(arg);
 		while (tmp)
 		{
 			if (!ft_strcmp(tmp->env, val[0]))
 			{
 				free(tmp->vals);
 				free(val[0]);
+				free(arg);
 				return ((tmp->vals = val[1]) ? 1 : 0);
 			}
 			tmp = tmp->next;
 		}
 		ft_addenv(&g_msh, ft_newenv(val[0], val[1]));
 	}
+	arg ? free(arg) : 1;
 	return (1);
 }
 

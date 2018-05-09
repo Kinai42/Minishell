@@ -6,13 +6,33 @@
 /*   By: dbauduin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 02:42:17 by dbauduin          #+#    #+#             */
-/*   Updated: 2018/04/27 02:44:47 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/05/09 03:11:34 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdlib.h>
 #include <unistd.h>
+
+int			echo_env(char *name)
+{
+	t_msh	*tmp;
+
+	tmp = g_msh;
+	if (*name == '$' && !(*name + 1))
+		write(1, "$", 1);
+	name++;
+	while (tmp)
+	{
+		if (!ft_strcmp(name, tmp->env))
+		{
+			write(1, tmp->vals, ft_strlen(tmp->vals));
+			return (0);
+		}
+		tmp = tmp->next;
+	}
+	return (0);
+}
 
 int			ft_putc(int c)
 {

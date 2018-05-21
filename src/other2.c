@@ -6,7 +6,7 @@
 /*   By: dbauduin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 02:42:17 by dbauduin          #+#    #+#             */
-/*   Updated: 2018/05/09 03:11:34 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/05/21 02:15:35 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int			echo_env(char *name)
 	t_msh	*tmp;
 
 	tmp = g_msh;
-	if (*name == '$' && !(*name + 1))
+	if (strlen(name) == 1 && name[0] == '$')
 		write(1, "$", 1);
 	name++;
 	while (tmp)

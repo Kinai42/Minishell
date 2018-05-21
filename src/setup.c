@@ -6,7 +6,7 @@
 /*   By: Damien <dbauduin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 13:48:23 by Damien            #+#    #+#             */
-/*   Updated: 2018/05/05 02:46:16 by dbauduin         ###   ########.fr       */
+/*   Updated: 2018/05/21 02:08:18 by dbauduin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@ inline static void	set_shlvl(t_msh *a)
 
 	if (strcmp(a->env, "SHLVL") == 0)
 	{
-		tmp = atoi(a->vals) + 1;
+		tmp = ft_atoi(a->vals) + 1;
 		free(a->vals);
 		a->vals = ft_itoa(tmp);
 	}
+	else
+		set_env(ft_strdup("SHLVL=1"));
 }
 
 int					setup(void)
